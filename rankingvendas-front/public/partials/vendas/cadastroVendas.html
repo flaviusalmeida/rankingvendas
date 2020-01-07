@@ -1,0 +1,63 @@
+<div class="page-header text-center">
+    <h2 class="well">{{tituloTela}} de venda</h2>
+</div>
+    
+    <p ng-show="mensagem.length" class="alert alert-info">{{mensagem}}</p>
+
+    <form novalidate name="formulario" class="row" ng-submit="cadastrarAlterar()">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="form-group">
+                <label>Número da proposta</label>
+                <input name="numeroProposta" class="form-control" mask="9?9?9?9?9?9?9?9" ng-model="venda.numeroProposta" required>
+            </div>
+            <div class="form-group">
+                <label>Nome do cliente</label>
+                <input name="nomeCliente" class="form-control" ng-model="venda.nomeCliente">  
+                <span ng-show="formulario.$submitted && formulario.venda.$error.maxlength" 
+                    class="form-control alert-danger">
+                    No máximo 120 caracteres!
+                </span>
+            </div>
+            <div class="form-group">
+                <label>CPF do titular</label>
+                <input name="CPFTitular" class="form-control" mask="999.999.999-99" ng-model="venda.CPFTitular" required>
+            </div>
+            <div class="form-group">
+                <label>Endereço do cliente</label>
+                <input name="enderecoCliente" class="form-control" ng-model="venda.enderecoCliente" required>
+            </div>
+            <div class="form-group">
+                <label>Telefone do cliente</label>
+                <input name="telefoneCliente" class="form-control" mask="(99) 9?9999-9999" ng-model="venda.telefoneCliente" required>
+            </div>
+            <div class="form-group">
+                <label>Quantidade de vidas</label>
+                <input name="qtdeVidas" class="form-control" mask="9?9?9" ng-model="venda.qtdeVidas" required>
+            </div>
+            <div class="form-group">
+                <label>Valor</label>
+                <input name="valor" class="form-control" ng-keyup="aplicarMascara()" ng-model="venda.valor" required>
+            </div>
+            <div class="form-group">
+                <label>Data da entrega</label>
+                <input name="dataVenda" class="form-control" datetime-picker date-format="dd/MM/yyyy" date-only ng-model="venda.dataVenda" required>
+            </div>
+            <div class="form-group">
+                <label>Data da venda</label>
+                <input name="dataEntrega" class="form-control" datetime-picker date-format="dd/MM/yyyy" date-only ng-model="venda.dataEntrega" required>
+            </div>
+            <div class="form-group">
+                <label>Vendedor</label>
+                <select class="form-control" name="vendedor" ng-model="venda.idVendedor" required>
+                    <option value="">Escolha um vendedor</option>
+                    <option value="{{vendedor.idVendedor}}" ng-repeat="vendedor in listaVendedores">{{vendedor.idVendedor}} - {{vendedor.nome}} </option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary" ng-disabled="formulario.$invalid">
+                Salvar
+            </button>
+            <a href="{{linkHrefVoltar}}" meu-focus class="btn btn-warning">Voltar</a>
+            <hr>
+        </div>
+    </form>

@@ -1,0 +1,45 @@
+<div class="page-header"/>
+
+<div class="row ">
+	<div class="col-md-12">
+		<form>
+			<div class="input-group">
+				<span class="input-group-btn">
+					<a href="/venda/pesquisar" class="btn btn-primary" type="button">
+						Nova venda
+					</a>
+				</span>
+				<input class="form-control" placeholder="filtrar pelo nome do vendedor"
+					ng-model="filtro" ng-model-options="{ debounce: 500 }">
+			</div>
+		</form>
+	</div> 
+</div>
+</br>
+<div id="tabela" class="table-responsive">
+	<table class="table table-hover table-bordered">
+		<thead>
+			<tr>
+				<th colspan="2" style="text-align: center;" width="85%">Vendedor</th>
+				<th style="text-align: center;" width="15%">Quantidades de Vidas</th> 
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="vendedor in ranking | filter: filtro"  >
+				<td width="3%" style="text-align: center;">
+					<a href="/vendedor/detalheVendas/{{vendedor.idVendedor}}">
+						<img src="/img/details_1.png" alt="Editar venda" height="16" width="16">
+					</a> 
+				</td>
+				<td>{{ vendedor.posicao }}° {{ vendedor.nomeVendedor }}</td>
+				<td style="text-align: right;">{{ vendedor.qtdeVidas }}</td>
+			</tr>
+			<tr class="active">
+				<td colspan="2" style="font-weight: bold;">TOTAL DE VIDAS</td>
+				<td style="text-align: right;">{{ totalVendas }}</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<button ng-click="teste()">print da table</button>
+</div> 

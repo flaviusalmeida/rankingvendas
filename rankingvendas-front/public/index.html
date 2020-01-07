@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-br" ng-app="alurapic">
+	<head>
+		<base href="/">
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width">
+		<title>Controle de Vendas</title>
+
+		<link rel="stylesheet" href="css/bootstrap.min.css">
+		<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+		<link rel="stylesheet" href="css/efeitos.css">
+		<link rel="stylesheet" href="css/angularjs-datetime-picker.css" />
+		
+		
+		<script src="js/lib/angular.min.js"></script>
+        <script src="js/lib/angular-animate.min.js"></script>
+        <script src="js/lib/angular-route.min.js"></script>
+        <script src="js/lib/angular-resource.min.js"></script>
+		<script src="js/main.js"></script>
+		<script src="js/controllers/vendas-controller.js"></script>
+		<script src="js/controllers/vendedor-controller.js"></script>
+		<script src="js/controllers/ranking-controller.js"></script>
+		<script src="js/controllers/det-vendedor-vendas.js"></script>
+		<script src="js/controllers/login-controller.js"></script>
+		<script src="js/directives/minhas-diretivas.js"></script>
+		<script src="js/services/ranking-service.js"></script>
+		<script src='js/mask/ngMask.min.js'></script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<script src="js/mask/angularjs-datetime-picker.js"></script>
+		<script src="js/hmtl2canvas.js"></script>
+		
+		
+	</head>
+	<body id="boooody">
+		<div class="container">
+			<nav class="navbar navbar-default navbar-fixed-top container">
+				<div class="container-fluid">
+					<div class="navbar-header">
+						<button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+							<span class="sr-only">Toggle navigation</span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+							<span class="icon-bar"></span>
+						</button>
+						<a class="navbar-brand" href="/">Ranking</a>
+					</div>
+					<div class="versao">v1.0</div>
+					<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+						<ul class="nav navbar-nav">
+							<li><a href="/vendedor/pesquisar">Vendedor</a></li>
+							<li><a href="/venda/pesquisar">Vendas</a></li>
+						</ul>
+					</div>
+				</div>
+			</nav>
+			<br/>
+			<br/>
+			<ng-view></ng-view>
+		</div> <!-- fim container -->        
+	</body>
+
+	<button onclick="openConsole()">Renderizar Esta Página</button>
+
+	<script>
+			$(window).ready(function () {
+				html2canvas.Preload(document.body, {
+					complete: function (images) {
+						var queue = html2canvas.Parse();
+						var canvas = html2canvas.Renderer(queue, { elements: { length: 1} });
+						var img = canvas.toDataURL();
+						openConsole("<img src='" + img + "'><p>");
+					}
+				});
+				function openConsole(content) {
+					top.console = window.open('', 'myconsole',
+					  'width=350,height=250'
+					   + ',menubar=0'
+					   + ',toolbar=1'
+					   + ',status=0'
+					   + ',scrollbars=1'
+					   + ',resizable=1')
+					top.console.document.writeln(
+					  '<html><head><title>Console</title></head>'
+					   + '<body bgcolor=white onLoad="self.focus()">'
+					   + content
+					   + '</body></html>'
+					 )
+					top.console.document.close()
+				};
+			});
+		</script>
+
+</html>

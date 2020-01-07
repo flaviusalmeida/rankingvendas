@@ -1,0 +1,104 @@
+<div class="page-header text-center">
+	<h2 class="well">Venda</h2>
+</div>
+ 
+    <p ng-show="mensagemSucesso.length" class="alert alert-info">{{mensagem}}</p>
+    <p ng-show="mensagemErro.length" class="alert alert-danger">{{mensagem}}</p>
+    
+       
+    <form novalidate name="formulario" class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="form-group">
+                <label>Número da proposta</label>
+                <input name="url" class="form-control" mask="99999999" ng-model="venda.numeroProposta">
+            </div>
+            <div class="form-group">
+                <label>Nome do cliente</label>
+                <input name="titulo" class="form-control" ng-model="venda.nomeCliente">  
+                <span ng-show="formulario.$submitted && formulario.titulo.$error.maxlength" 
+                    class="form-control alert-danger">
+                    No máximo 120 caracteres!
+                </span>
+            </div>
+            <div class="form-group form-data row" >
+                <div class="col-md-6 col-xs-6">
+                    <div class="form-group">
+                        <label>Data da venda</label>
+                        <input name="dataEntregaInicial" class="form-control" placeholder="Data inical" datetime-picker date-format="dd/MM/yyyy" date-only ng-model="venda.dataVendaInicial">
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <div class="form-group">
+                        <label>&nbsp</label>
+                        <input name="dataEntregaInicial" class="form-control" placeholder="Data final" datetime-picker date-format="dd/MM/yyyy" date-only ng-model="venda.dataVendaFinal">
+                    </div>
+                </div>
+            </div>
+            <div class="form-group form-data row">
+                <div class="col-md-6 col-xs-6">
+                    <div class="form-group">
+                        <label>Data da entrega inicial</label>
+                        <input name="dataVendaInicial" class="form-control" placeholder="Data inical" datetime-picker date-format="dd/MM/yyyy" date-only ng-model="venda.dataEntregaInicial">
+                    </div>
+                </div>
+                <div class="col-md-6 col-xs-6">
+                    <div class="form-group">
+                            <label>&nbsp</label>
+                        <input name="dataEntregaFinal" class="form-control" placeholder="Data final" datetime-picker date-format="dd/MM/yyyy" date-only ng-model="venda.dataEntregaFinal">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label>Vendedor</label>
+                <select class="form-control" name="vendedor" ng-model="venda.idVendedor">
+                    <option value="">Escolha um vendedor</option>
+                    <option value="{{vendedor.idVendedor}}" ng-repeat="vendedor in listaVendedores">{{vendedor.nome}} </option>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-info" ng-click="pesquisar()">
+                Consultar
+            </button>
+            <a href="/venda/novo" meu-focus class="btn btn-success">Novo</a>
+            <a href="/ranking" meu-focus class="btn btn-warning">Voltar</a>
+            <hr>
+        </div>
+    </form>
+    <div class="table-responsive">
+        <table class="table table-striped table-bordered">
+            <thead>
+                <tr>
+                    <th style="text-align: center;">Número da proposta</th>
+                    <th style="text-align: center;">Nome do cliente</th> 
+                    <th style="text-align: center;">CPF do titular</th>
+                    <th style="text-align: center;">Data da venda</th>
+                    <th style="text-align: center;">Data da entrega</th>
+                    <th style="text-align: center;">Vidas</th>
+                    <th style="text-align: center;">Vendedor</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="venda in consulta">
+                    <td>{{ venda.numeroProposta }}</td>
+                    <td>{{ venda.nomeCliente }}</td>
+                    <td style="text-align: center;">{{ venda.CPFTitular }}</td>
+                    <td style="text-align: center;">{{ venda.dataVenda }}</td>
+                    <td style="text-align: center;">{{ venda.dataEntrega }}</td>
+                    <td style="text-align: right;">{{ venda.qtdeVidas }}</td>
+                    <td>{{ venda.nomeVendedor }}</td>
+                    <td width="3%" style="text-align: center;">
+                        <a href="/venda/editar/{{venda.idVenda}}">
+                            <img src="/img/edit_1.png" alt="Editar venda" height="16" width="16">
+                        </a> 
+                    </td>
+                </tr>
+                <tr class="active">
+                    <td colspan="5" style="font-weight: bold;">TOTAL DE VIDAS</td>
+                    <td style="text-align: right;">{{ totalVendas }}</td>
+                    <td colspan="2" style="text-align: right;"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
